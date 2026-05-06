@@ -31,8 +31,9 @@ function renderWithProviders(ui) {
 describe('Login', () => {
   it('renders login form with email and password inputs', () => {
     renderWithProviders(<Login />)
-    // Get email input by id
-    expect(screen.getByDisplayValue('')).toBeDefined() // input exists
+    // Get inputs by their id
+    expect(screen.getByLabelText(/^Email$/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/^Password$/i)).toBeInTheDocument()
     // Check for the login button
     expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument()
     // Check for email placeholder

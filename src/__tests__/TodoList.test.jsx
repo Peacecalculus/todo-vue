@@ -6,22 +6,24 @@ import { AuthProvider } from '../context/AuthContext'
 import { vi } from 'vitest'
 
 vi.mock('../api', () => {
-  const fetchTasksFn = vi.fn()
-  const createTaskFn = vi.fn()
-  const updateTaskFn = vi.fn()
-  const deleteTaskFn = vi.fn()
+  const fetchTodosFn = vi.fn()
+  const createTodoFn = vi.fn()
+  const updateTodoFn = vi.fn()
+  const deleteTodoFn = vi.fn()
   return {
-    fetchTasks: fetchTasksFn,
-    createTask: createTaskFn,
-    fetchTodos: fetchTasksFn,
-    createTodo: createTaskFn,
-    updateTodo: updateTaskFn,
-    deleteTodo: deleteTaskFn,
+    fetchTodos: fetchTodosFn,
+    fetchTasks: fetchTodosFn,
+    createTodo: createTodoFn,
+    createTask: createTodoFn,
+    updateTodo: updateTodoFn,
+    updateTask: updateTodoFn,
+    deleteTodo: deleteTodoFn,
+    deleteTask: deleteTodoFn,
     getMe: vi.fn(),
     refreshAccessToken: vi.fn()
   }
 })
-import { fetchTasks } from '../api'
+import { fetchTodos } from '../api'
 import TodoList from '../pages/TodoList'
 
 function renderWithClient(ui){
@@ -39,7 +41,7 @@ function renderWithClient(ui){
 
 test('renders list and pagination', async ()=>{
   const tasks = Array.from({length:12}).map((_,i)=>({ id: i+1, title: `Task ${i+1}`, completed: i%2===0 }))
-  fetchTasks.mockResolvedValue(tasks)
+  fetchTodos.mockResolvedValue(tasks)
 
   renderWithClient(<Routes><Route path="/" element={<TodoList/>} /></Routes>)
 
@@ -54,6 +56,6 @@ test('renders list and pagination', async ()=>{
   expect(screen.getByPlaceholderText(/Search tasks/i)).toBeInTheDocument()
 
   // page controls
-  expect(screen.getByText(/Page 1 of/)).toBeInTheDocument()
+  expect(screen.getByText(/1 \/ /)).toBeInTheDocument()
   expect(screen.getByRole('button', { name: /Next/i })).toBeInTheDocument()
 })

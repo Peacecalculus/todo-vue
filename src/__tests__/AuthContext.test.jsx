@@ -1,6 +1,11 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider, useAuth } from '../context/AuthContext'
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: false } },
+})
 
 function Consumer(){
   const { user, loading } = useAuth()
@@ -10,9 +15,11 @@ function Consumer(){
 
 test('AuthProvider initial state without token', ()=>{
   render(
-    <AuthProvider>
-      <Consumer />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Consumer />
+      </AuthProvider>
+    </QueryClientProvider>
   )
   expect(screen.getByText('no-user')).toBeInTheDocument()
 })
