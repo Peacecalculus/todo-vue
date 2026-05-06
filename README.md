@@ -53,7 +53,7 @@ Files of interest
 
 Deployment
 
-Deploy the `dist` folder to Vercel, Netlify, or similar. On Vercel, connect the repository and set the build command to `npm run build` and output directory to `dist`.
+Deploy the `dist` folder to Netlify, Vercel, or similar. On Netlify, connect the repository and set the build command to `npm run build` and output directory to `dist`.
 
 Features
 
@@ -83,7 +83,7 @@ This repository includes a GitHub Actions workflow at `.github/workflows/ci.yml`
 Deployment
 
 - Netlify: `netlify.toml` is included with build command `npm run build` and publish directory `dist`.
-- Vercel: connect the repository and use the build command `npm run build` with output directory `dist`.
+- Netlify: connect the repository and use the build command `npm run build` with output directory `dist`.
 
 Running tests locally
 
