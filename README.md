@@ -1,27 +1,8 @@
-Todo App
+Todo App (Vue + Vite)
 
-Project description
+A Vue 3 + Vite Todo application with Pinia for state, Vue Router for routing, and Tailwind CSS for styling. The app supports authentication (register/login), client-side pagination, search and filters, todo details and editing, and accessibility improvements.
 
-A React (Vite) Todo application that integrates with the public API at https://api.oluwasetemi.dev. It demonstrates pagination, routing, a details page, ErrorBoundary, search/filtering, responsive layout, and accessibility basics.
-
-Setup
-
-1. Install dependencies
-
-```bash
-npm install
-```
-
-2. Run development server
-
-```bash
-Todo App
-
-Project description
-
-This is a React (Vite) Todo application that integrates with the public API at https://api.oluwasetemi.dev. It implements client-side pagination, routing with nested detail pages, search and filters, create/edit/delete operations for authenticated users, an ErrorBoundary, accessibility improvements, and a protected profile route.
-
-Setup
+Quick start
 
 1. Install dependencies
 
@@ -35,59 +16,57 @@ npm install
 npm run dev
 ```
 
-Build
+3. Build for production
 
 ```bash
 npm run build
 ```
 
-Files of interest
-
-- src/App.jsx — routing and layout
-- src/pages/TodoList.jsx — list, pagination, search, filters, create
-- src/pages/TodoDetails.jsx — details route, edit/delete
-- src/pages/Login.jsx, src/pages/Register.jsx — authentication flows
-- src/context/AuthContext.jsx — token management and user state
-- src/components/ErrorBoundary.jsx — error boundary implementation
-- src/components/ProtectedRoute.jsx — guards authenticated routes
-
-Deployment
-
-Deploy the `dist` folder to Netlify, Vercel, or similar. On Netlify, connect the repository and set the build command to `npm run build` and output directory to `dist`.
-
-Features
-
-- Pagination (10 items per page, client-side)
-- Todo details nested route
-- Search and completion filters
-- Create / Edit / Delete (authenticated users)
-- Authentication (register/login) with token stored in `localStorage`
-- Protected profile route
-- Error boundary and custom 404
-- Accessibility improvements: focus outlines, ARIA attributes, keyboard-focusable controls
-
-Known issues & next steps
-
-- The app currently loads the full todo list and paginates client-side. If the API offers server-side pagination, switching will improve performance on large datasets.
-- Improve styling with a design system or component library (e.g., ShadCN/UI, Chakra) for production polish.
-- Add tests, CI, and automated deploy previews.
-
-Contact & submission
-
-Deploy the app, then submit the repository URL and the deployed application URL via the provided submission form.
-
-Continuous Integration
-
-This repository includes a GitHub Actions workflow at `.github/workflows/ci.yml` that installs dependencies, builds the project, and runs tests on push and pull requests to `main`/`master`.
-
-Deployment
-
-- Netlify: `netlify.toml` is included with build command `npm run build` and publish directory `dist`.
-- Netlify: connect the repository and use the build command `npm run build` with output directory `dist`.
-
-Running tests locally
+4. Preview the production build locally
 
 ```bash
-npm ci
+npm run preview
+```
+
+Project structure (high level)
+
+- `src/main.ts` — app entry, router and Pinia setup
+- `src/App.vue` — global layout & navigation
+- `src/views/` — page views (TodoListView, TodoDetailsView, LoginView, RegisterView, ProfileView)
+- `src/stores/` — Pinia stores (`auth`, `todos`, `notifications`, `socket`)
+- `src/components/` — reusable UI components (Notifications, etc.)
+- `src/styles/` — global Tailwind CSS
+- `src/api.ts` — lightweight local API shim (uses localStorage for demo)
+
+Testing
+
+- Unit/integration tests run with `vitest`.
+
+```bash
 npm test
 ```
+
+Deployment
+
+- Netlify: `netlify.toml` is included (build: `npm run build`, publish: `dist`).
+- After pushing to your GitHub repo, Netlify should auto-deploy the `main` branch.
+
+Notes & maintenance
+
+- The project includes a minimal local `src/api.ts` shim for demo purposes (localStorage-backed). For a real backend, set `VITE_API_BASE_URL` and implement `src/api.ts` accordingly.
+- For optional realtime updates, set `VITE_WS_URL` to your WebSocket endpoint and use the `socket` store.
+
+Contributing & fixes
+
+- To remove generated `dist/` from Git tracking locally, run:
+
+```bash
+git rm --cached -r dist
+git add .gitignore
+git commit -m "chore: ignore dist build output"
+git push origin main
+```
+
+Contact
+
+Open an issue or submit a pull request with improvements or fixes.
